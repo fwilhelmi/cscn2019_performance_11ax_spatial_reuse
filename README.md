@@ -11,7 +11,7 @@ The Spatial Reuse (SR) operation included in the IEEE 802.11ax-2020 (11ax) amend
 ### Repository description
 This repository contains the LaTeX files and other complementary material used for the conference article "On the Performance of the Spatial Reuse Operation in IEEE 802.11ax WLANs", which has been sent to "CSCN 2019". 
 
-The inputs used and the outputs obtained for/from this work can be found in [zenodo link to be inserted here]
+The inputs used and the outputs obtained for/from this work can be found in [Zenodo](https://zenodo.org/record/3250080#.XRNDX5MzZ24)
 
 All the results have been obtained from pre-release v3.0 of the Komondor simulator: [https://github.com/wn-upf/Komondor/releases/tag/3.0](https://github.com/wn-upf/Komondor/releases/tag/3.0)
 
