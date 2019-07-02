@@ -65,7 +65,7 @@
 		\label{fig:example_sr}
 	\end{figure}
 	
-	Despite SR is expected to bring significant performance gains to WLANs, its actual benefit is still unknown. First, the new kind of inter-WLAN interactions that the operation generates is unexplored, as well as their impact on the network. Moreover, the gain achieved by applying SR is hindered by the trade-off between the number of parallel transmissions and their duration. Note that increasing the OBSS/PD (i.e., using a more aggressive threshold) entails decreasing the transmission power, which may result in using a lower Modulation and Coding Scheme (MCS), or even experiencing an increased packet  error rate. The effects of increasing the OBSS/PD, and hence decreasing the transmission power, are illustrated in Table \ref{tbl:effects_sr}. As shown, an increase in the OBSS/PD threshold entails a higher probability for accessing to the channel, since the number of sensed inter-BSS transmissions can be potentially reduced (this is equivalent to reducing the exposed-node probability). In contrast, the number of hidden nodes can potentially increase as the listening area is being reduced.
+	Despite SR is expected to bring significant performance gains to WLANs, its actual benefit is still unknown. First, the new kind of inter-WLAN interactions that the operation generates is unexplored, as well as their impact on the network. Moreover, the gain achieved by applying SR is hindered by the trade-off between the number of parallel transmissions and their duration. Note that increasing the OBSS/PD (i.e., using a more aggressive threshold) entails decreasing the transmission power, which may result in using a lower Modulation and Coding Scheme (MCS), or even experiencing an increased packet  error rate. The effects of increasing the OBSS/PD, and hence decreasing the transmission power, are illustrated in Table \ref{tbl:effects_sr}. As shown, an increase in the OBSS/PD threshold entails a higher probability for accessing to the channel, since the number of sensed inter-BSS transmissions can be potentially reduced (this is equivalent to reducing the exposed-node probability). In contrast, the number of hidden nodes can potentially increase as the listening area is being reduced. Nevertheless, these hidden nodes may not necessarily incur into a significant impact to the WLAN applying SR, since an AP increasing the OBSS/PD threshold may not be able to serve to cell-edge STAs (i.e., the ones that are more likely to suffer collisions by hidden node).
 	
 	\begin{table}[]
 		\caption{Effect of increasing the OBSS/PD threshold and the transmission power.}
@@ -115,7 +115,7 @@
 	
 	The whole SR operation is based on identifying the source of a given transmission, i.e., inter-BSS frame detection. The idea is that High Efficiency (HE) nodes - a.k.a 11ax nodes - can rapidly decode the MAC headers of a certain transmission, and determine its origin. Then, a more aggressive OBSS/PD threshold can be employed to increase the probability of accessing to the channel.
 	
-	For the fast packet source identification, two concepts are introduced, which stand for BSS Coloring and Spatial Reuse Groups (SRG). On the one hand, the BSS Color field is included in the MAC headers\footnote{The BSS Color is carried in the HE-SIG-A field, which is present in every Physical Layer Convergence Procedure (PLCP) Protocol Data Unit (PPDU).} to uniquely identify different WLANs belonging to an OBSS. In case of detecting a color collision, the affected WLANs would require to change their BSS Color. On the other hand, SRGs can be formed by a set of overlapping WLANs. The SRG field is present in control frames such as Beacons, Probe responses, or (Re)Association responses.\footnote{Unlike the BSS Color, the SRG is included in the Spatial Reuse Parameter Set (SRPS) element. A bitmap is stored by each 11ax node applying SR, which maps the set of BSS Colors that belong to a certain SRG.} In this case, a specific OBSS/PD threshold can be used for transmissions within the same SRG.
+	For the fast packet source identification, two concepts are introduced, which stand for BSS Coloring and Spatial Reuse Groups (SRG). On the one hand, the BSS Color field is included in the PHY headers\footnote{The BSS Color is carried in the HE-SIG-A field, which is present in every Physical Layer Convergence Procedure (PLCP) Protocol Data Unit (PPDU).} to uniquely identify different WLANs belonging to an OBSS. In case of detecting a color collision, the affected WLANs would require to change their BSS Color. On the other hand, SRGs can be formed by a set of overlapping WLANs. The SRG field is present in control frames such as Beacons, Probe responses, or (Re)Association responses.\footnote{Unlike the BSS Color, the SRG is included in the Spatial Reuse Parameter Set (SRPS) element. A bitmap is stored by each 11ax node applying SR, which maps the set of BSS Colors that belong to a certain SRG.} In this case, a specific OBSS/PD threshold can be used for transmissions within the same SRG.
 	
 	\subsection{General Constraints}
 	The 11ax amendment includes a set of constraints on defining the OBSS/PD to be used for detecting SR opportunities. In particular, the OBSS/PD cannot exceed the following upper bound:
@@ -193,7 +193,7 @@
 	\subsection{Traffic Generation and Data Rate}
 	Only downlink transmissions are considered for the sake of capturing inter-AP interactions. Hence, a traffic generator is attached to every AP. All traffic generators produce data packets at the same traffic load $\ell$, which varies depending on the scenario. The packets arrival process is modeled through a Poisson distribution.
 	
-	The rate at which data is transmitted is based on the MCS modes defined in the 11ax amendment, which are virtually selected according to the link quality between the transmitter (the AP) and the receiver (the STA). The highest achievable data rate is achieved when using modulation 1024-QAM at a coding rate of 5/6.
+	The rate at which data is transmitted is based on the MCS modes defined in the 11ax amendment, which are virtually selected according to the Signal-to-interference-plus-noise ratio (SINR) perceived at the receiver (the STA) from its transmitter (the AP). The highest achievable data rate is achieved when using modulation 1024-QAM at a coding rate of 5/6.
 	
 	\subsection{Throughput Calculation and Reception Model}
 	
@@ -206,7 +206,7 @@
 	The number of data bits (or data packets) transmitted successfully depends on the channel conditions and the sensed interference. In particular, a given transmission is considered to be successful only if the following conditions hold at the receiver:
 	\begin{enumerate}
 		\item The power of interest sensed at the receiver remains above the CCA/CS.
-		\item The Signal-to-interference-plus-noise ratio (SINR) stays above the capture effect (CE) threshold, set to 10 dB.
+		\item The SINR stays above the capture effect (CE) threshold, set to 10 dB.
 	\end{enumerate}
 	
 	\subsection{Scenarios for Evaluation}
@@ -354,14 +354,10 @@
 		\bibitem{sr_evaluation_2} Qu, Q., et al., \& Au, E. (2018). ``Survey and Performance Evaluation of the Upcoming Next Generation WLAN Standard-IEEE 802.11 ax." arXiv preprint arXiv:1806.05908, unpublished.
 		\bibitem{smith2017dynamic} Smith, G. K. (2017). ``Dynamic sensitivity control for wireless devices." U.S. Patent No. 9,596,702. Washington, DC: U.S. Patent and Trademark Office.
 		\bibitem{sr_evaluation_3} Shen, Z., Li, B., Yang, M., Yan, Z., Li, X., \& Jin, Y. (2018, October). ``Research and Performance Evaluation of Spatial Reuse Technology for Next Generation WLAN." In International Wireless Internet Conference (pp. 41-51). Springer, Cham.
-		%\bibitem{wilhelmi2019tutorial} Wilhelmi, F., Barrachina-Mu\~noz, S., Bellalta, B., Cano, C. \& Selinis, I. (2019). ``Spatial Reuse in the IEEE 802.11ax: Analysis, Challenges and Opportunities." arXiv preprint arXiv:XXX, unpublished.
 		\bibitem{bellalta2019ap} Bellalta, B., \& Kosek-Szott, K. (2019). ``AP-initiated multi-user transmissions in IEEE 802.11 ax WLANs." Ad Hoc Networks, 85, 145-159.
 		\bibitem{tmb} Adame, T., Carrascosa, M., \& Bellalta, B. (2019, April). The TMB path loss model for 5 GHz indoor WiFi scenarios: On the empirical relationship between RSSI, MCS, and spatial streams. In 2019 Wireless Days (WD) (pp. 1-8). IEEE.
 		\bibitem{collaborative} Wilhelmi, F., Cano, C., Neu, G., Bellalta, B., Jonsson, A., \& Barrachina-Mu\~noz, S. (2019). Collaborative spatial reuse in wireless networks via selfish multi-armed bandits. Ad Hoc Networks, 88, 129-141.
 		\bibitem{potential} Wilhelmi, F., Barrachina-Mu\~noz, S., Bellalta, B., Cano, C., Jonsson, A., \& Neu, G. (2019). Potential and pitfalls of multi-armed bandits for decentralized spatial reuse in wlans. Journal of Network and Computer Applications, 127, 26-42.
-		
-		
-		
 	\end{thebibliography}
 	
 \end{document}

@@ -15,7 +15,7 @@
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-		
+
 \begin{document}
 	
 	\title{On the Performance of the Spatial Reuse Operation in IEEE 802.11ax WLANs
@@ -43,7 +43,7 @@
 	\maketitle
 	
 	\begin{abstract}
-	The Spatial Reuse (SR) operation included in the IEEE 802.11ax-2020 (11ax) amendment aims at increasing the number of parallel transmissions in an Overlapping Basic Service Set (OBSS). However, many unknowns exist about the performance gains that can be achieved through SR. In this paper, we provide a brief introduction to the SR operation described in the IEEE 802.11ax (draft D4.0). Then, a simulation-based implementation is provided in order to explore the performance gains of the SR operation. Our results show the potential of using SR in different scenarios covering multiple network densities and traffic loads. In particular, we observe significant performance gains when a WLAN applies SR with respect to the default configuration. Interestingly, the highest improvements are observed in the most pessimistic situations in terms of network density and traffic load.
+		The Spatial Reuse (SR) operation included in the IEEE 802.11ax-2020 (11ax) amendment aims at increasing the number of parallel transmissions in an Overlapping Basic Service Set (OBSS). However, many unknowns exist about the performance gains that can be achieved through SR. In this paper, we provide a brief introduction to the SR operation described in the IEEE 802.11ax (draft D4.0). Then, a simulation-based implementation is provided in order to explore the performance gains of the SR operation. Our results show the potential of using SR in different scenarios covering multiple network densities and traffic loads. In particular, we observe significant performance gains when a WLAN applies SR with respect to the default configuration. Interestingly, the highest improvements are observed in the most pessimistic situations in terms of network density and traffic load.
 	\end{abstract}
 	
 	\begin{IEEEkeywords}
@@ -65,20 +65,20 @@
 		\label{fig:example_sr}
 	\end{figure}
 	
-	Despite SR is expected to bring significant performance gains to WLANs, its actual benefit is still unknown. First, the new kind of inter-WLAN interactions that the operation generates is unexplored, as well as their impact on the network. Moreover, the gain achieved by applying SR is hindered by the trade-off between the number of parallel transmissions and their duration. Note that increasing the OBSS/PD (i.e., using a more aggressive threshold) entails decreasing the transmission power, which may result in using a lower Modulation and Coding Scheme (MCS), or even experiencing an increased packet  error rate. The effects of increasing the OBSS/PD, and hence decreasing the transmission power, are illustrated in Table \ref{tbl:effects_sr}. As shown, an increase in the OBSS/PD threshold entails a higher probability for accessing to the channel, since the number of sensed inter-BSS transmissions can be potentially reduced (this is equivalent to reducing the exposed-node probability). In contrast, the number of hidden nodes can potentially increase as the listening area is being reduced.
+	Despite SR is expected to bring significant performance gains to WLANs, its actual benefit is still unknown. First, the new kind of inter-WLAN interactions that the operation generates is unexplored, as well as their impact on the network. Moreover, the gain achieved by applying SR is hindered by the trade-off between the number of parallel transmissions and their duration. Note that increasing the OBSS/PD (i.e., using a more aggressive threshold) entails decreasing the transmission power, which may result in using a lower Modulation and Coding Scheme (MCS), or even experiencing an increased packet  error rate. The effects of increasing the OBSS/PD, and hence decreasing the transmission power, are illustrated in Table \ref{tbl:effects_sr}. As shown, an increase in the OBSS/PD threshold entails a higher probability for accessing to the channel, since the number of sensed inter-BSS transmissions can be potentially reduced (this is equivalent to reducing the exposed-node probability). In contrast, the number of hidden nodes can potentially increase as the listening area is being reduced. %Nevertheless, these hidden nodes may not necessarily incur into a significant impact to the WLAN applying SR, since an AP increasing the OBSS/PD threshold may not be able to serve to cell-edge STAs (i.e., the ones that are more likely to suffer collisions by hidden node).
 	
-    \begin{table}[]
-    	\caption{Effect of increasing the OBSS/PD threshold and the transmission power.}
-    	\label{tbl:effects_sr}
-    	\resizebox{\columnwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
-    		\hline
-    		& \begin{tabular}[c]{@{}c@{}}Data \\ rate\end{tabular} 
-    		& \begin{tabular}[c]{@{}c@{}}Channel access\\ probability\end{tabular} &  \begin{tabular}[c]{@{}c@{}}Hidden-node\\ probability\end{tabular} & \begin{tabular}[c]{@{}c@{}}Exposed-node\\ probability\end{tabular} \\ \hline
-    		\begin{tabular}[c]{@{}c@{}}OBSS/PD $\uparrow$\\ (Tx Power $\downarrow$)\end{tabular} & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ \\ \hline
-    	\end{tabular}}
-    \end{table}
+	\begin{table}[]
+		\caption{Effect of increasing the OBSS/PD threshold and the transmission power.}
+		\label{tbl:effects_sr}
+		\resizebox{\columnwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				& \begin{tabular}[c]{@{}c@{}}Data \\ rate\end{tabular} 
+				& \begin{tabular}[c]{@{}c@{}}Channel access\\ probability\end{tabular} &  \begin{tabular}[c]{@{}c@{}}Hidden-node\\ probability\end{tabular} & \begin{tabular}[c]{@{}c@{}}Exposed-node\\ probability\end{tabular} \\ \hline
+				\begin{tabular}[c]{@{}c@{}}OBSS/PD $\uparrow$\\ (Tx Power $\downarrow$)\end{tabular} & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ \\ \hline
+		\end{tabular}}
+	\end{table}
 	
-    In this work, we shed light on the performance of the 11ax SR operation and highlight the situations in which it is worth using it. The main contributions of this paper are as follows:
+	In this work, we shed light on the performance of the 11ax SR operation and highlight the situations in which it is worth using it. The main contributions of this paper are as follows:
 	\begin{itemize}
 		\item We provide a summary of the OBSS PD-based SR operation included in draft version D4.0 of the IEEE 802.11ax amendment, which is, to the date of publishing this article, under the initial sponsor ballot phase.
 		\item We present an implementation of the aforementioned operation in the 11ax-based Komondor simulator \cite{komondor}.\footnote{All the source code is open and free to use (Github repository: \url{https://github.com/wn-upf/Komondor}), with the aim of encouraging potential collaborations with any interested researcher.}
@@ -90,7 +90,7 @@
 	\label{section:related_work}
 	
 	The 11ax SR operation included has been previously surveyed and evaluated in \cite{bellalta2016ieee,khorov2018tutorial,sr_evaluation_1,sr_evaluation_2}. However, these works refer to previous draft versions of the amendment (D1.0 and D2.0), which has undergone significant modifications in its current version D4.0.
-
+	
 	First, the Task Group ax (TGax) presented some preliminary results for cellular-type scenarios in \cite{sr_evaluation_1}. In particular, significant gains were shown when combining BSS Coloring and Dynamic Sensitivity Control (DSC) \cite{smith2017dynamic}. A further analysis was then provided in \cite{sr_evaluation_2} for office scenarios, which also showed that gains were only achieved in dense deployments. Nonetheless, the simulations conducted in that work were obtained from a system and link level integrated simulation platform based on ns-2, from which no validation was provided.
 	
 	The authors in \cite{sr_evaluation_3} provided a thorough performance evaluation of the SR operation, in addition to several other features included in the 11ax amendment. To that purpose, they proposed their own simulation platform for IEEE 802.11ax (SLISP), which mostly focuses on the MAC of the 11ax. Based on that, the SR operation was evaluated in indoor and outdoor scenarios containing multiple BSS. Significant gains were shown in indoor deployments (especially for downlink traffic), while a moderate gain was noticed in outdoor situations.
@@ -115,8 +115,8 @@
 	
 	The whole SR operation is based on identifying the source of a given transmission, i.e., inter-BSS frame detection. The idea is that High Efficiency (HE) nodes - a.k.a 11ax nodes - can rapidly decode the MAC headers of a certain transmission, and determine its origin. Then, a more aggressive OBSS/PD threshold can be employed to increase the probability of accessing to the channel.
 	
-	For the fast packet source identification, two concepts are introduced, which stand for BSS Coloring and Spatial Reuse Groups (SRG). On the one hand, the BSS Color field is included in the MAC headers\footnote{The BSS Color is carried in the HE-SIG-A field, which is present in every Physical Layer Convergence Procedure (PLCP) Protocol Data Unit (PPDU).} to uniquely identify different WLANs belonging to an OBSS. In case of detecting a color collision, the affected WLANs would require to change their BSS Color. On the other hand, SRGs can be formed by a set of overlapping WLANs. The SRG field is present in control frames such as Beacons, Probe responses, or (Re)Association responses.\footnote{Unlike the BSS Color, the SRG is included in the Spatial Reuse Parameter Set (SRPS) element. A bitmap is stored by each 11ax node applying SR, which maps the set of BSS Colors that belong to a certain SRG.} In this case, a specific OBSS/PD threshold can be used for transmissions within the same SRG.
-		
+	For the fast packet source identification, two concepts are introduced, which stand for BSS Coloring and Spatial Reuse Groups (SRG). On the one hand, the BSS Color field is included in the PHY headers\footnote{The BSS Color is carried in the HE-SIG-A field, which is present in every Physical Layer Convergence Procedure (PLCP) Protocol Data Unit (PPDU).} to uniquely identify different WLANs belonging to an OBSS. In case of detecting a color collision, the affected WLANs would require to change their BSS Color. On the other hand, SRGs can be formed by a set of overlapping WLANs. The SRG field is present in control frames such as Beacons, Probe responses, or (Re)Association responses.\footnote{Unlike the BSS Color, the SRG is included in the Spatial Reuse Parameter Set (SRPS) element. A bitmap is stored by each 11ax node applying SR, which maps the set of BSS Colors that belong to a certain SRG.} In this case, a specific OBSS/PD threshold can be used for transmissions within the same SRG.
+	
 	\subsection{General Constraints}
 	The 11ax amendment includes a set of constraints on defining the OBSS/PD to be used for detecting SR opportunities. In particular, the OBSS/PD cannot exceed the following upper bound:
 	\begin{align}\nonumber \text{OBSS/PD} \leq & \max\Big(\text{OBSS/PD}_{\min}, \min\big(\text{OBSS/PD}_{\max},\\ & \text{OBSS/PD}_{\min} + (\text{TX\_PWR}_{\text{ref}}-\text{TX\_PWR})\big)\Big), \nonumber \end{align}
@@ -128,9 +128,9 @@
 	\resizebox{.9\columnwidth}{!}{$\text{TX\_PWR}_{\max} = \text{TX\_PWR}_{\text{ref}} - (\text{OBSS/PD} -\text{OBSS/PD}_{\min})$}
 	\label{eq:power_restriction}
 	\end{equation}
-		
+	
 	\subsection{Example of the OBSS PD-based Spatial Reuse Operation}
-
+	
 	In order to illustrate the concepts described above, let us consider the scenario depicted in Fig.~\ref{fig:fig_2}. As shown, there is a station (STA), namely STA$_{B2}$, which, by using the default configuration, is prone to suffer from flow starvation, as a result of the OBSS interference. Nevertheless, the OBSS PD-based SR operation allows that STA to overcome the aforementioned interference, thus gaining access to the channel. This is illustrated in Fig.~\ref{fig:fig_2b}, where inter-BSS transmissions are ignored by STA$_{B2}$ when using the SR operation. In marker~1 (shown in yellow), STA$_{B2}$ inspects the Request to Send (RTS) frame sent by AP$_A$, which is identified as an inter-BSS transmission. Accordingly, STA$_{B2}$ uses a more aggressive OBSS/PD threshold, which allows the backoff procedure to be resumed (marker 2). Finally, STA$_{B2}$ starts its own transmission by taking advantage of the detected SR-based opportunity (marker 3). However, a power restriction is applied, thus decreasing the MCS and increasing the data transmission time, as a consequence.
 	
 	%%% Implementation
@@ -159,7 +159,7 @@
 	\end{itemize}
 	
 	For the sake of efficiency, the PHY is simplified in the Komondor simulator, so that particular focus is put on the MAC layer. Moreover, operations related to management and control are simplified too. According to that, the initialization of nodes is logically performed at the beginning of the simulation, instead of simulating the exact exchange of control frames between nodes. In particular, the AP of a given WLAN is meant to notify to its associated STAs the initial SR configuration, as well as any potential change, which in Komondor is done virtually (i.e., without the actual packet exchanges).
-
+	
 	% Detect opportunities
 	\subsection{Detection of SR-based Opportunities}
 	
@@ -188,12 +188,12 @@
 	\label{eq:tmb}
 	\end{equation} 
 	where  $L_0$ is the path-loss
-    intercept, $\gamma$ is the path-loss exponent, $k$ is the attenuation factor that characterizes obstacles, and $\overline{W}$ is the average number of wall obstacles per meter.
+	intercept, $\gamma$ is the path-loss exponent, $k$ is the attenuation factor that characterizes obstacles, and $\overline{W}$ is the average number of wall obstacles per meter.
 	
 	\subsection{Traffic Generation and Data Rate}
 	Only downlink transmissions are considered for the sake of capturing inter-AP interactions. Hence, a traffic generator is attached to every AP. All traffic generators produce data packets at the same traffic load $\ell$, which varies depending on the scenario. The packets arrival process is modeled through a Poisson distribution.
 	
-	The rate at which data is transmitted is based on the MCS modes defined in the 11ax amendment, which are virtually selected according to the link quality between the transmitter (the AP) and the receiver (the STA). The highest achievable data rate is achieved when using modulation 1024-QAM at a coding rate of 5/6.
+	The rate at which data is transmitted is based on the MCS modes defined in the 11ax amendment, which are virtually selected according to the Signal-to-interference-plus-noise ratio (SINR) perceived at the receiver (the STA) from its transmitter (the AP). The highest achievable data rate is achieved when using modulation 1024-QAM at a coding rate of 5/6.
 	
 	\subsection{Throughput Calculation and Reception Model}
 	
@@ -206,7 +206,7 @@
 	The number of data bits (or data packets) transmitted successfully depends on the channel conditions and the sensed interference. In particular, a given transmission is considered to be successful only if the following conditions hold at the receiver:
 	\begin{enumerate}
 		\item The power of interest sensed at the receiver remains above the CCA/CS.
-		\item The Signal-to-interference-plus-noise ratio (SINR) stays above the capture effect (CE) threshold, set to 10 dB.
+		\item The SINR stays above the capture effect (CE) threshold, set to 10 dB.
 	\end{enumerate}
 	
 	\subsection{Scenarios for Evaluation}
@@ -339,7 +339,7 @@
 	Regarding channel occupancy (second row), improvements are also noticed as traffic load increases, for every network density. Essentially, more transmission opportunities are achieved due to the lower OBSS/PD used by WLAN$_A$. Nonetheless, an interesting phenomenon occurs for the MD and HD scenarios at low-moderate traffic loads. In these cases, the legacy approach leads to a clear increase on channel occupancy. This increase is caused by the elevate number of re-transmissions performed, which are propitiated by the higher collision probability between overlapping WLANs. We conclude that SR allows using channel resources more efficiently by reducing the contention among neighboring WLANs, and thus boosting parallel transmissions.
 	
 	Finally, Fig.~\ref{fig:cdf_delay} illustrates the potential reduction on the delay experienced by WLAN$_A$ when implementing SR. In particular, we select the empirical cumulative distribution function (CDF) to highlight the probability of experiencing small and high delays resulting from all the simulated scenarios. Similarly than before, for each scenario, we pick the average delay obtained by the best possible OBSS/PD threshold used by WLAN$_A$ (in terms of throughput) and compare it with the legacy situation. Three representative traffic load values are included for each network density. As illustrated, the probability of experiencing a high delay rapidly increases with network density and traffic load when legacy operation is considered. Nevertheless, SR substantially improves delay performance by keeping it at moderate values in most of the studied scenarios.
-
+	
 	%%% Conclusions
 	\section{Conclusions}
 	In this paper, we introduced the 11ax SR operation and evaluated its potential in a variety of scenarios covering different node densities and traffic loads. To that purpose, we provided an implementation of the SR operation in the 11ax-oriented Komondor simulator. Our results showed that significant gains can be achieved by using the SR operation, especially in high interference situations where both network density and traffic load are high. Therefore, there is a huge potential on SR when it comes to maximize channel utilization.
@@ -354,14 +354,10 @@
 		\bibitem{sr_evaluation_2} Qu, Q., et al., \& Au, E. (2018). ``Survey and Performance Evaluation of the Upcoming Next Generation WLAN Standard-IEEE 802.11 ax." arXiv preprint arXiv:1806.05908, unpublished.
 		\bibitem{smith2017dynamic} Smith, G. K. (2017). ``Dynamic sensitivity control for wireless devices." U.S. Patent No. 9,596,702. Washington, DC: U.S. Patent and Trademark Office.
 		\bibitem{sr_evaluation_3} Shen, Z., Li, B., Yang, M., Yan, Z., Li, X., \& Jin, Y. (2018, October). ``Research and Performance Evaluation of Spatial Reuse Technology for Next Generation WLAN." In International Wireless Internet Conference (pp. 41-51). Springer, Cham.
-		%\bibitem{wilhelmi2019tutorial} Wilhelmi, F., Barrachina-Mu\~noz, S., Bellalta, B., Cano, C. \& Selinis, I. (2019). ``Spatial Reuse in the IEEE 802.11ax: Analysis, Challenges and Opportunities." arXiv preprint arXiv:XXX, unpublished.
 		\bibitem{bellalta2019ap} Bellalta, B., \& Kosek-Szott, K. (2019). ``AP-initiated multi-user transmissions in IEEE 802.11 ax WLANs." Ad Hoc Networks, 85, 145-159.
 		\bibitem{tmb} Adame, T., Carrascosa, M., \& Bellalta, B. (2019, April). The TMB path loss model for 5 GHz indoor WiFi scenarios: On the empirical relationship between RSSI, MCS, and spatial streams. In 2019 Wireless Days (WD) (pp. 1-8). IEEE.
 		\bibitem{collaborative} Wilhelmi, F., Cano, C., Neu, G., Bellalta, B., Jonsson, A., \& Barrachina-Mu\~noz, S. (2019). Collaborative spatial reuse in wireless networks via selfish multi-armed bandits. Ad Hoc Networks, 88, 129-141.
 		\bibitem{potential} Wilhelmi, F., Barrachina-Mu\~noz, S., Bellalta, B., Cano, C., Jonsson, A., \& Neu, G. (2019). Potential and pitfalls of multi-armed bandits for decentralized spatial reuse in wlans. Journal of Network and Computer Applications, 127, 26-42.
-		
-		
-		
 	\end{thebibliography}
 	
 \end{document}
