@@ -1,0 +1,336 @@
+\documentclass[compress,xcolor=table]{beamer}
+\usepackage{lmodern}
+\usepackage{tabularx,booktabs}
+\usepackage{multirow}
+\mode<presentation>
+{
+	\usetheme{Madrid}      % or try Darmstadt, Madrid, Warsaw, ...
+	\usecolortheme{beaver} % or try albatross, beaver, crane, ...
+	\usefonttheme{serif}  % or try serif, structurebold, ...
+	\setbeamertemplate{navigation symbols}{}
+	\setbeamertemplate{caption}[numbered]
+}
+
+\makeatletter
+\setbeamertemplate{headline}{%
+	\begin{beamercolorbox}[ht=2.25ex,dp=3.75ex]{section in head/foot}
+		\insertnavigation{\paperwidth}
+	\end{beamercolorbox}%
+}%
+\makeatother
+
+\makeatletter
+\newenvironment{withoutheadline}{
+	\setbeamertemplate{headline}[default]
+	\def\beamer@entrycode{\vspace*{-\headheight}}
+}{}
+\makeatother
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{textpos}
+\newcommand\citem[1]{\item[{[#1]}] }
+
+\newcommand\pro{\item[\textcolor{green}{$+$}]}
+\newcommand\con{\item[\textcolor{red}{$-$}]}
+
+\usepackage{pgfgantt}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{hyperref}
+
+\usepackage{empheq}
+\usepackage[most]{tcolorbox}
+
+\newtcbox{\mymath}[1][]{%
+	nobeforeafter, math upper, tcbox raise base,
+	enhanced, colframe=blue!30!black,
+	colback=blue!30, boxrule=1pt,
+	#1}
+
+%\captionsetup[figure]{labelformat=empty}% redefines the caption setup of the figures environment in the beamer class.
+
+\ganttset{group/.append style={orange},
+	milestone/.append style={red},
+	progress label node anchor/.append style={text=red}}
+
+\lstset
+{
+	language=[LaTeX]TeX,
+	breaklines=true,
+	basicstyle=\tt\scriptsize,
+	%commentstyle=\color{green}
+	keywordstyle=\color{red},
+	%stringstyle=\color{black}
+	identifierstyle=\color{orange},
+}
+
+\newcommand{\backupbegin}{
+	\newcounter{finalframe}
+	\setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+	\setcounter{framenumber}{\value{finalframe}}
+}
+
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+	\setlength{\textwidth}{#1}
+	\begin{actionenv}#3%
+		\def\insertblocktitle{#2}%
+		\par%
+		\usebeamertemplate{block begin}}
+	{\par%
+		\usebeamertemplate{block end}%
+\end{actionenv}}
+
+%\usepackage{outlines}
+\setbeamercolor{itemize item}{fg=red,bg=white}
+
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+%\hypersetup{
+%	colorlinks=true,
+%	linkcolor=blue,
+%	urlcolor=blue
+%}
+\renewcommand{\footnotesize}{\fontsize{7pt}{9pt}\selectfont}
+
+%%% TITLE
+\title[CSCN 2019]{On the Performance of the Spatial Reuse Operation in IEEE 802.11ax WLANs}
+\author[Barrachina-Mu\~noz]{\includegraphics[width=\textwidth,height=0.13\textheight,keepaspectratio]{img/logo_upf.jpg}\\~\\Francesc Wilhelmi, Sergio Barrachina-Mu\~noz \& Boris Bellalta}
+\institute[UPF]{Presenter: \textcolor{blue}{sergio.barrachina@upf.edu}}
+\date[CSCN 2019]{CSCN 2019}
+
+\AtBeginSection[]
+{
+	\begin{frame}<beamer>
+	\frametitle{Outline}
+	\tableofcontents[currentsection,currentsubsection]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{withoutheadline}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+\end{withoutheadline}
+
+%\begin{frame}{Table of contents} % and our simple frame
+%	\tableofcontents
+%\end{frame}
+
+%%% INTRODUCTION
+\section{Introduction}
+
+\subsection{}
+\begin{frame}{Summarized Contributions}
+\begin{enumerate}
+	\item Summary of the IEEE 802.11ax OBSS/PD-based SR operation
+	\item Performance evaluation of the SR operation through simulations
+	\item Newest (and stable) D4.0 version is considered
+\end{enumerate}
+\end{frame}
+
+\subsection{}
+\begin{frame}{Introduction to Spatial Reuse}
+\begin{columns}
+	\begin{column}{6cm}
+		\begin{exampleblock}{Goal}
+			\begin{itemize}
+				\item Increase channel utilization
+				\item Allow multiple simultaneous transmissions
+			\end{itemize}
+		\end{exampleblock}
+		\begin{block}{Approach}
+			\begin{itemize}
+				\item Ignore inter-BSS transmissions through OBSS/PD adjustment
+				\item Constrained transmit power
+			\end{itemize}
+		\end{block}
+	\end{column}
+	\begin{column}{5.3cm}
+		\begin{figure}
+			\includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{img/example_sr.pdf}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{}
+\begin{frame}{Implications}
+ \begin{table}[]
+	%	\caption{Effect of increasing the OBSS/PD threshold and the transmission power.}
+	\label{tbl:effects_sr}
+	\resizebox{\columnwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			& \begin{tabular}[c]{@{}c@{}}Data \\ rate\end{tabular} 
+			& \begin{tabular}[c]{@{}c@{}}Channel access\\ probability\end{tabular} &  \begin{tabular}[c]{@{}c@{}}Hidden-node\\ probability\end{tabular} & \begin{tabular}[c]{@{}c@{}}Exposed-node\\ probability\end{tabular} \\ \hline
+			\begin{tabular}[c]{@{}c@{}}OBSS/PD $\uparrow$\\ (Tx Power $\downarrow$)\end{tabular} & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ \\ \hline
+	\end{tabular}}
+\caption{Effects of increasing the OBSS/PD threshold (decrease the transmission power).}
+\end{table}
+\end{frame}
+
+
+%%% IEEE 802.11ax SR
+\section{IEEE 802.11ax Spatial Reuse}
+
+\subsection{}
+\begin{frame}{Spatial Reuse in a Nutshell}
+	\begin{block}{Early packet source detection}
+		\begin{itemize}
+			\item BSS Color included in MAC headers (unique for an OBSS)
+			\item SRGs can be formed among different BSS
+		\end{itemize}
+	\end{block}
+	\begin{exampleblock}{Sensitivity adjustment mechanism}
+	\begin{itemize}
+		\item No mechanism exists for selecting the OBSS/PD threshold
+		\item Only lower/upper bounds are provided in the amendment
+	\end{itemize}
+	\end{exampleblock}
+	\begin{alertblock}{Constrained transmit power}
+		\begin{itemize}
+			\item The maximum transmission power as function of the selected OBSS/PD threshold
+		\end{itemize}
+	\end{alertblock}
+\end{frame}
+
+\subsection{}
+\begin{frame}{Implementation in Komondor - Flowchart}
+\begin{figure}
+	\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{img/implementation_overview.pdf}
+	\caption{Implementation of the 11ax SR operation in Komondor.}
+\end{figure}
+\end{frame}
+
+\subsection{}
+\begin{frame}{Example}
+\begin{figure}
+\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{img/fig_2.pdf}\caption{Scenario}
+\end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+	\includegraphics[width=\textwidth]{img/fig_2b.pdf}\caption{Packets exchange}
+\end{subfigure}
+\caption{Reduction of the contention time in a STA applying the 11ax SR operation.}
+\end{figure}
+\end{frame}
+
+%%% Performance evaluation
+\section{Performance Evaluation}
+
+\subsection{}
+\begin{frame}{Simulation Scenario}
+\begin{columns}
+	\begin{column}{5cm}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.9\textwidth]{img/map_central.eps}
+			%\vspace{0.3cm}
+			\caption{Random deployment with WLAN$_A$ placed in the center.}
+		\end{figure}
+	\end{column}
+	\begin{column}{6cm}
+		\begin{block}{Deployment}
+				\begin{itemize}
+				 \item 3 different map sizes (LD, MD and HD)
+				\item 16 different traffic loads ($l$)
+				\item 50 random deployments (averaging purposes)
+			\end{itemize}
+		\end{block}
+		\begin{exampleblock}{Analysis}
+			\begin{itemize}
+			\item Only WLAN$_A$ applies the SR operation (higher interference)
+			\item 21 possible OBSS/PD thresholds computed by brute force
+			\end{itemize}
+		\end{exampleblock}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{}
+\begin{frame}{Results (Throughput and Channel Occupancy)}
+\begin{figure}
+		\includegraphics[width=0.6\textwidth]{img/throughput_occupancy.eps}
+		\caption{Throughput and channel occupancy experienced by WLAN$_A$ (A) and the other WLANs (O) in low (LD), medium (MD) and high density (HD) deployments. Each curve is named in the legend in the format X-A$^{\text{m}}$, where A$^{\text{m}}$ represents whether WLAN$_A$ uses spatial reuse (SR) or not (Leg).}
+\end{figure}
+\end{frame}
+
+\subsection{}
+\begin{frame}{Results (Delay)}
+\begin{figure}
+	\includegraphics[width=\textwidth]{img/cdf_delay.eps}
+	\caption{Empirical cumulative distribution function of the average packet delay experienced by WLAN$_A$. Different network densities and traffic loads are considered. Solid and dashed lines indicate whether WLAN$_A$ uses spatial reuse (SR) or not (Leg), respectively.}
+\end{figure}
+\end{frame}
+
+%%% CONCLUSIONS
+\section{Conclusions \& Future work}
+\subsection{}
+\begin{frame}{Conclusions \& Future work}
+\begin{exampleblock}{Work done}
+	\begin{itemize}
+		\item The SR operation allows to enhance the performance of WLANs in dense scenarios
+		\item While gains in the throughput are moderate, significant delay improvements are noticed
+		\begin{itemize}
+			\item Good for voice/video
+		\end{itemize}
+	\end{itemize}
+\end{exampleblock}
+\begin{alertblock}{Future work}
+	\begin{itemize}
+		\item Extend the analysis to scenarios where multiple WLANs apply the SR operation
+		\begin{itemize}
+		\item Also, consider the formation of SRGs to further enhance SR
+		\end{itemize}
+		\item Synergies of SR with other IEEE 802.11 features (scheduling, OFDMA, beamforming...)
+	\end{itemize}
+\end{alertblock}
+\end{frame}
+
+%%% QUESTIONS
+\section{}
+\begin{frame}{Any questions?}
+	\begin{figure}
+		\includegraphics[width=\textwidth,height=0.4\textheight,keepaspectratio]{img/question_mark.png}
+	\end{figure}
+	\begin{center}	
+		\footnotesize
+		\textbf{Sergio Barrachina Mu\~noz, Ph.D. candidate}\\
+		\textcolor{blue}{\textbf{sergio.barrachina@upf.edu}}\\
+		Department of Communication and Information Technologies\\
+		Universitat Pompeu Fabra (Barcelona, Spain)
+	\end{center}
+\end{frame}
+
+s
+
+% Backup slides here
+\backupbegin
+
+\begin{frame}{Backup 1: Equations}
+	Maximum OBSS/PD threshold:
+	\begin{empheq}[box=\mymath]{equation*}
+		\begin{align}\nonumber \text{OBSS/PD} \leq & \max\Big(\text{OBSS/PD}_{\min}, \min\big(\text{OBSS/PD}_{\max},\\ & \text{OBSS/PD}_{\min} + (\text{TX\_PWR}_{\text{ref}}-\text{TX\_PWR})\big)\Big) \nonumber \end{align}
+	\end{empheq}
+	Maximum transmit power:
+	\begin{empheq}[box=\mymath]{equation*}
+		\resizebox{.9\columnwidth}{!}{$\text{TX\_PWR}_{\max} = \text{TX\_PWR}_{\text{ref}} - (\text{OBSS/PD} -\text{OBSS/PD}_{\min})$}
+		\nonumber
+	\end{empheq}
+\end{frame}
+
+
+
+\backupend
+
+\end{document}
