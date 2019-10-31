@@ -103,17 +103,19 @@
 
 %%% TITLE
 \title[CSCN 2019]{On the Performance of the Spatial Reuse Operation in IEEE 802.11ax WLANs}
-\author[Barrachina-Mu\~noz]{\includegraphics[width=\textwidth,height=0.13\textheight,keepaspectratio]{img/logo_upf.jpg}\\~\\Francesc Wilhelmi, Sergio Barrachina-Mu\~noz \& Boris Bellalta}
-\institute[UPF]{Presenter: \textcolor{blue}{sergio.barrachina@upf.edu}}
-\date[CSCN 2019]{CSCN 2019}
+\author[Sergio Barrachina-Mu\~noz]{\includegraphics[width=\textwidth,height=0.13\textheight,keepaspectratio]{img/logo_upf.jpg}\\~\\Francesc Wilhelmi, Sergio Barrachina-Mu\~noz \& Boris Bellalta\\ \vspace{0.3 cm} \small -- Wireless Networking research group --}
+\institute[]{Presenter: \textbf{\textcolor{blue}{\texttt{sergio.barrachina@upf.edu}}}}
+\date[30 October 2019]{IEEE CSCN 2019, Granada (Spain)}
 
-\AtBeginSection[]
-{
-	\begin{frame}<beamer>
-	\frametitle{Outline}
-	\tableofcontents[currentsection,currentsubsection]
-\end{frame}
-}
+%\AtBeginSection[]
+%{
+%	\begin{frame}<beamer>
+%	\frametitle{Outline}
+%	\tableofcontents[currentsection,currentsubsection]
+%\end{frame}
+%}
+
+
 
 \begin{document}
 
@@ -123,7 +125,7 @@
 	\end{frame}
 \end{withoutheadline}
 
-%\begin{frame}{Table of contents} % and our simple frame
+%\begin{frame}{Outline} % and our simple frame
 %	\tableofcontents
 %\end{frame}
 
@@ -131,25 +133,23 @@
 \section{Introduction}
 
 \subsection{}
-\begin{frame}{Summarized Contributions}
-\begin{enumerate}
-	\item Summary of the IEEE 802.11ax OBSS/PD-based SR operation
-	\item Performance evaluation of the SR operation through simulations
-	\item Newest (and stable) D4.0 version is considered
-\end{enumerate}
-\end{frame}
-
-\subsection{}
 \begin{frame}{Introduction to Spatial Reuse}
 \begin{columns}
 	\begin{column}{6cm}
-		\begin{exampleblock}{Goal}
+		\begin{alertblock}{Data rate used to be the fuel}
+			\begin{itemize}
+				\item Up to 802.11ac data rate increase was the main goal
+			\end{itemize}
+		\end{alertblock}
+		\pause
+		\begin{exampleblock}{IEEE 11ax new goal}
 			\begin{itemize}
 				\item Increase channel utilization
 				\item Allow multiple simultaneous transmissions
 			\end{itemize}
 		\end{exampleblock}
-		\begin{block}{Approach}
+		\pause
+		\begin{block}{The SR approach}
 			\begin{itemize}
 				\item Ignore inter-BSS transmissions through OBSS/PD adjustment
 				\item Constrained transmit power
@@ -165,55 +165,74 @@
 \end{frame}
 
 \subsection{}
-\begin{frame}{Implications}
- \begin{table}[]
-	%	\caption{Effect of increasing the OBSS/PD threshold and the transmission power.}
-	\label{tbl:effects_sr}
-	\resizebox{\columnwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
-			\hline
-			& \begin{tabular}[c]{@{}c@{}}Data \\ rate\end{tabular} 
-			& \begin{tabular}[c]{@{}c@{}}Channel access\\ probability\end{tabular} &  \begin{tabular}[c]{@{}c@{}}Hidden-node\\ probability\end{tabular} & \begin{tabular}[c]{@{}c@{}}Exposed-node\\ probability\end{tabular} \\ \hline
-			\begin{tabular}[c]{@{}c@{}}OBSS/PD $\uparrow$\\ (Tx Power $\downarrow$)\end{tabular} & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ \\ \hline
-	\end{tabular}}
-\caption{Effects of increasing the OBSS/PD threshold (decrease the transmission power).}
-\end{table}
+\begin{frame}{OBSS/PD and TX\_PWR tradeoff}
+	\begin{figure}
+		\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{img/obsspd_sergio.pdf}
+	\end{figure}
+%	\pause
+%	\begin{table}[]
+%		\small
+%		\centering
+%		\begin{tabular}{@{}c|cccc@{}}
+%			\cmidrule(l){2-5}
+%			& Data rate & Channel access & Hidden node & Exposed node \\ \midrule
+%			\begin{tabular}[c]{@{}c@{}}OBSS/PD $\uparrow$\\ (TX\_PWR $\downarrow$)\end{tabular} &  $\downarrow$         &    $\uparrow$            &  $\uparrow$           &  $\downarrow$            \\ \bottomrule
+%		\end{tabular}
+%	\end{table}
+	
 \end{frame}
+
+%\subsection{}
+%\begin{frame}{Paper contributions}
+%	\begin{enumerate}
+%		\item Summary of the IEEE 802.11ax OBSS/PD-based SR operation
+%		\item Implementation of SR operation in Komondor simulator 
+%		\begin{itemize}
+%			\item Newest (and stable) D4.0 version is considered
+%		\end{itemize}
+%		\item Evaluation of optimal SR performance
+%	%
+%	\end{enumerate}
+%	%
+%\end{frame}
+
 
 
 %%% IEEE 802.11ax SR
 \section{IEEE 802.11ax Spatial Reuse}
-
 \subsection{}
-\begin{frame}{Spatial Reuse in a Nutshell}
+\begin{frame}{OBSS/PD based SR in a Nutshell}
 	\begin{block}{Early packet source detection}
 		\begin{itemize}
 			\item BSS Color included in MAC headers (unique for an OBSS)
 			\item SRGs can be formed among different BSS
 		\end{itemize}
 	\end{block}
+	\pause
 	\begin{exampleblock}{Sensitivity adjustment mechanism}
 	\begin{itemize}
 		\item No mechanism exists for selecting the OBSS/PD threshold
-		\item Only lower/upper bounds are provided in the amendment
+		\item Only min and max values are provided in the amendment
 	\end{itemize}
+	\pause
 	\end{exampleblock}
 	\begin{alertblock}{Constrained transmit power}
 		\begin{itemize}
 			\item The maximum transmission power as function of the selected OBSS/PD threshold
 		\end{itemize}
 	\end{alertblock}
+
 \end{frame}
 
 \subsection{}
 \begin{frame}{Implementation in Komondor - Flowchart}
 \begin{figure}
 	\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{img/implementation_overview.pdf}
-	\caption{Implementation of the 11ax SR operation in Komondor.}
 \end{figure}
 \end{frame}
 
 \subsection{}
-\begin{frame}{Example}
+\begin{frame}{Example of the OBSS/PD SR operation}
 \begin{figure}
 \begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{img/fig_2.pdf}\caption{Scenario}
@@ -221,7 +240,6 @@
 \begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{img/fig_2b.pdf}\caption{Packets exchange}
 \end{subfigure}
-\caption{Reduction of the contention time in a STA applying the 11ax SR operation.}
 \end{figure}
 \end{frame}
 
@@ -229,28 +247,28 @@
 \section{Performance Evaluation}
 
 \subsection{}
-\begin{frame}{Simulation Scenario}
+\begin{frame}{Simulation scenarios}
 \begin{columns}
 	\begin{column}{5cm}
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.9\textwidth]{img/map_central.eps}
 			%\vspace{0.3cm}
-			\caption{Random deployment with WLAN$_A$ placed in the center.}
 		\end{figure}
 	\end{column}
 	\begin{column}{6cm}
-		\begin{block}{Deployment}
+		\begin{block}{\textbf{Simulation setup}}
 				\begin{itemize}
-				 \item 3 different map sizes (LD, MD and HD)
-				\item 16 different traffic loads ($l$)
-				\item 50 random deployments (averaging purposes)
+				 \item Low, medium and high density
+				\item Traffic load ($l$) up to 100 Mbps
+				\item 50 random deployments
 			\end{itemize}
 		\end{block}
-		\begin{exampleblock}{Analysis}
+		\begin{exampleblock}{\textbf{Max. performance analysis}}
 			\begin{itemize}
 			\item Only WLAN$_A$ applies the SR operation (higher interference)
-			\item 21 possible OBSS/PD thresholds computed by brute force
+			\item Throughput $\Gamma$ and delay $d$ of the $\text{argmax}_{\text{OBSS/PD}}(\Gamma$)
+			\item Brute force computation
 			\end{itemize}
 		\end{exampleblock}
 	\end{column}
@@ -261,43 +279,46 @@
 \begin{frame}{Results (Throughput and Channel Occupancy)}
 \begin{figure}
 		\includegraphics[width=0.6\textwidth]{img/throughput_occupancy.eps}
-		\caption{Throughput and channel occupancy experienced by WLAN$_A$ (A) and the other WLANs (O) in low (LD), medium (MD) and high density (HD) deployments. Each curve is named in the legend in the format X-A$^{\text{m}}$, where A$^{\text{m}}$ represents whether WLAN$_A$ uses spatial reuse (SR) or not (Leg).}
 \end{figure}
+
+\footnotesize
+Throughput and channel occupancy experienced by WLAN$_A$ (A) and the other WLANs (O) in low (LD), medium (MD) and high density (HD) deployments. Each curve is named in the legend in the format X-A$^{\text{m}}$, where A$^{\text{m}}$ represents whether WLAN$_A$ uses spatial reuse (SR) or not (Leg).
+
 \end{frame}
 
 \subsection{}
 \begin{frame}{Results (Delay)}
 \begin{figure}
 	\includegraphics[width=\textwidth]{img/cdf_delay.eps}
-	\caption{Empirical cumulative distribution function of the average packet delay experienced by WLAN$_A$. Different network densities and traffic loads are considered. Solid and dashed lines indicate whether WLAN$_A$ uses spatial reuse (SR) or not (Leg), respectively.}
 \end{figure}
+
+	\footnotesize
+	Empirical cumulative distribution function of the average packet delay experienced by WLAN$_A$. Different network densities and traffic loads are considered. Solid and dashed lines indicate whether WLAN$_A$ uses spatial reuse (SR) or not (Leg), respectively.
 \end{frame}
 
 %%% CONCLUSIONS
 \section{Conclusions \& Future work}
 \subsection{}
 \begin{frame}{Conclusions \& Future work}
-\begin{exampleblock}{Work done}
+\begin{exampleblock}{Conclusions}
 	\begin{itemize}
-		\item The SR operation allows to enhance the performance of WLANs in dense scenarios
-		\item While gains in the throughput are moderate, significant delay improvements are noticed
-		\begin{itemize}
-			\item Good for voice/video
-		\end{itemize}
+		\item We describe the OBSS/PD-based SR in IEEE 802.11ax
+		\item Implementation of SR in Komondor $\rightarrow$ test novel algorithms
+		\item Simulations show that SR enhances the performance (throughput and delay) of WLANs; specially, in dense scenarios
 	\end{itemize}
 \end{exampleblock}
 \begin{alertblock}{Future work}
 	\begin{itemize}
-		\item Extend the analysis to scenarios where multiple WLANs apply the SR operation
-		\begin{itemize}
-		\item Also, consider the formation of SRGs to further enhance SR
-		\end{itemize}
+		\item Extend the analysis to scenarios where multiple WLANs apply SR
 		\item Synergies of SR with other IEEE 802.11 features (scheduling, OFDMA, beamforming...)
+		\item  Algorithm for setting up an \textit{optimal} OBSS/PD threshold
 	\end{itemize}
 \end{alertblock}
 \end{frame}
 
 %%% QUESTIONS
+\appendix
+\backupbegin
 \section{}
 \begin{frame}{Any questions?}
 	\begin{figure}
@@ -312,12 +333,23 @@
 	\end{center}
 \end{frame}
 
-s
+
 
 % Backup slides here
-\backupbegin
 
-\begin{frame}{Backup 1: Equations}
+
+\subsection{}
+\begin{frame}{IEEE 802.11 SR operation}
+	
+	\begin{figure}
+		\includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{img/sr_blocks.PNG}
+	\end{figure}
+	
+	\footnotesize
+	* Tutorial on 11ax SR: \textit{Wilhelmi et. al. ``Spatial Reuse in IEEE 802.11ax WLANs.'' preprint}
+\end{frame}
+
+\begin{frame}{OBSS/PD equation}
 	Maximum OBSS/PD threshold:
 	\begin{empheq}[box=\mymath]{equation*}
 		\begin{align}\nonumber \text{OBSS/PD} \leq & \max\Big(\text{OBSS/PD}_{\min}, \min\big(\text{OBSS/PD}_{\max},\\ & \text{OBSS/PD}_{\min} + (\text{TX\_PWR}_{\text{ref}}-\text{TX\_PWR})\big)\Big) \nonumber \end{align}

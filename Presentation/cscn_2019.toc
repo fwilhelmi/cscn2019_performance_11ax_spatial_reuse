@@ -1,6 +1,5 @@
-\beamer@endinputifotherversion {3.36pt}
-\select@language {english}
+\babel@toc {english}{}
 \beamer@sectionintoc {1}{Introduction}{2}{0}{1}
 \beamer@sectionintoc {2}{IEEE 802.11ax Spatial Reuse}{6}{0}{2}
-\beamer@sectionintoc {3}{Performance Evaluation}{10}{0}{3}
+\beamer@sectionintoc {3}{Performance Evaluation}{11}{0}{3}
 \beamer@sectionintoc {4}{Conclusions \& Future work}{14}{0}{4}
